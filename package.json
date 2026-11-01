@@ -11,7 +11,8 @@
     "postbuild": "npx pagefind --site _site",
     "links:create": "node src/js/create-links.js",
     "links:check": "node src/js/check-links.js",
-    "newsletter:drafts": "node src/js/newsletter/send-newsletters.js"
+    "newsletter:drafts": "node src/js/newsletter/send-newsletters.js",
+    "resize-images": "bash ./lib/resize-images.sh"
   },
   "keywords": [],
   "author": "",
