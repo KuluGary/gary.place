@@ -60,6 +60,7 @@ metadata:
 
           <content type="html">
             {{ post.content | htmlToAbsoluteUrls(absolutePostUrl) | rssImages(metadata.url) }}
+
             {% if translations.length > 0 %}
               &lt;hr&gt;
               &lt;p&gt;
@@ -70,6 +71,13 @@ metadata:
               {% endfor %}
               &lt;/p&gt;
             {% endif %}
+
+            &lt;hr&gt;
+            &lt;p&gt;
+              &lt;a href="mailto:{{ metadata.author.email }}?subject={{ ('Re: ' + post.data.title) | urlencode }}&amp;body={{ ('I wanted to reply to your article: ' + absolutePostUrl) | urlencode }}"&gt;
+                Reply via email
+              &lt;/a&gt;
+            &lt;/p&gt;
           </content>
         </entry>
       {% endif %}
