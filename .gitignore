@@ -4,3 +4,4 @@ _site
 .cache
 src/_data
 docs
+.obsidian
