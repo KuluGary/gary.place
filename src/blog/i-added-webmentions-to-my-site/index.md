@@ -91,6 +91,72 @@ With my webmentions available as JSON files, I can hanle them and display them h
 
 {%endraw%}
 
+
+## Sending Webmentions
+
+<span class="sub">
+
+This section is being added today, Nov. 6th 2026, as to complete this article.
+
+</span>
+
+So far, I've focused on receiving webmentions from other websites and displaying them on my own site. But webmentions work both ways. When you publish a post that links to someone else's website, you can notify that website about the link by sending a webmention.
+
+A webmention sender scans your posts, extracts outbound links, checks whether the destination websites advertise a webmention endpoint, and sends a notification to those endpoints.
+
+One tool that can do this is [@remy/webmention](https://github.com/RemySharp/webmention).
+
+### Using your RSS feed as the source
+
+An interesting detail is that you can point the sender at your RSS feed rather than an individual blog post URL.
+
+This can be particularly useful with hosted blogging platforms. Depending on how the platform generates its HTML, the sender might identify the wrong source URL when inspecting an individual post. Using the RSS feed avoids this problem because the feed contains the canonical URLs of individual posts.
+
+For example, you can scan your feed without sending anything:
+
+```
+npx @remy/webmention https://gary.place/feed.xml --limit 0 --debug
+```
+
+The tool defaults to dry-run mode, so this command discovers endpoints but does not send webmentions.
+
+### What I found
+
+I ran this against my own RSS feed, which contained 10 posts at the time of testing.
+
+The tool found 136 link references across those posts. After checking the destinations, it discovered four webmention endpoints:
+
+- [rknight.me](https://rknight.me/blog/adding-webmentions-to-your-site/)
+- [jay.gooby.org](https://jay.gooby.org/2021/01/15/getting-webmentions-and-bridgy-working)
+- [janmonschke.com](https://janmonschke.com/adding-webmentions-to-your-static-blog/)
+- [sia.codes](https://sia.codes/posts/webmentions-eleventy-in-depth/)
+
+All four endpoints used webmention.io.
+
+The tool also skipped some links, including YouTube videos and GitHub URLs. So the number of discovered endpoints is not a simple measure of all the websites that might support webmentions.
+
+Still, four endpoints from 136 link references gives a good indication of how limited adoption remains.
+
+One other thing worth noting: the tool correctly identified the individual post URL as the source, even though I supplied the RSS feed URL:
+
+`https://gary.place/post/i-added-webmentions-to-my-site/`
+
+That's a useful confirmation that the feed-based approach works with my blog.
+
+### Sending the webmentions
+
+Once you're happy with the dry-run results, you can add the `--send` flag:
+
+```
+npx @remy/webmention https://gary.place/feed.xml --limit 0 --send
+```
+
+This tells the tool to send webmentions to the endpoints it discovers.
+
+I'd recommend starting with a small number of posts before scanning your entire feed.
+
+For more details, see [Usama's article on sending webmentions from a blog](https://justblogged.com/blog/webmentions-on-a-blog).
+
 ## Next steps
 
 The main problem remaining with my approach to webmentions is the fact that they will only be obtained whenever I choose to rebuild and deploy a new version of the site. The easiest way to fix this may be to configure some sort of cron job to periodically rebuild my site and deploy it, which would also refetch any webmention I may have available.

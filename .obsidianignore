@@ -1,0 +1,14 @@
+_site
+docs
+lib
+node_modules
+
+src/_data
+src/_includes
+src/_layouts
+src/assets
+src/css
+src/data
+src/js
+src/pages
+src/newsletter
