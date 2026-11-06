@@ -25,7 +25,7 @@ export async function generateAudio(content, { section, slug }) {
 				${audio.thumbnail ? `<img class="album-cover" src="${getOriginalUrl(section, slug, audio.thumbnail)}">` : ""}
 			</figcaption>
 			<audio controls="">
-				<source src="${getOriginalUrl(section, slug, audio.filename)}" type="audio/*" />
+				<source src="${getOriginalUrl(section, slug, audio.filename)}" type="audio/${audio.extension}" />
 				</audio>
 		</figure>
 `;
@@ -41,12 +41,15 @@ function parseAudioContent(content) {
     throw new Error("An audio filename is required.");
   }
 
+  const extension = filename.split(".").pop();
+
   return {
     filename,
     title,
     author,
     album,
     thumbnail,
+    extension,
   };
 }
 
