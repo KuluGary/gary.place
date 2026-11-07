@@ -15,10 +15,6 @@ css:
 
 		{% include "components/email-form.html" %}
 
-		<p class="sub">You can unsubscribe at any time using the link included in every email.</p>
-
-		<p class="sub">Your subscription is managed by Buttondown, my email newsletter provider. Read my <a href="/privacy-policy" target="_blank">Privacy Policy</a> to learn how your information is processed.</p>
-
 		<p>Or you can also subscribe to the <a href="/newsletter/feed.xml">RSS feed</a> to get updates that way.</p>
 
 		{% for year, posts in collections.newsletterByYear | dictsort | reverse %}
