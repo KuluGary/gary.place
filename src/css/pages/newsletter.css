@@ -1,0 +1,26 @@
+form:has(+ .sub) {
+  margin-block-end: 0 !important;
+}
+
+.sub {
+  font-style: italic;
+  color: var(--clr-text-faint-1);
+  font-size: var(--font-size-0);
+  margin-block: 0 var(--spacing-tight);
+}
+
+.sub + p:not(.sub) {
+  margin-block-start: var(--spacing-main);
+}
+
+label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

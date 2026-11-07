@@ -8,11 +8,16 @@ css:
 
 {% block content %}
 	<main id="main-content">
-		<p>Subscribe for free e-mail updates!</p>
 
-		<p>I will <em>never</em> use this e-mail for <em>any</em> other purpose other than to send you updates like the ones listed here.</p>
+		<p>Subscribe to receive occasional email updates.</p>
 
-		{% include "components/kit-email-form.html" %}
+		<p>I'll only use your email address to send you this newsletter. I won't sell your information, share your email address for advertising, or use it for unrelated purposes.</p>
+
+		{% include "components/email-form.html" %}
+
+		<p class="sub">You can unsubscribe at any time using the link included in every email.</p>
+
+		<p class="sub">Your subscription is managed by Buttondown, my email newsletter provider. Read my <a href="/privacy-policy" target="_blank">Privacy Policy</a> to learn how your information is processed.</p>
 
 		<p>Or you can also subscribe to the <a href="/newsletter/feed.xml">RSS feed</a> to get updates that way.</p>
 

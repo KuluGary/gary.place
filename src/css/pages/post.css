@@ -52,10 +52,30 @@ article {
 }
 
 .post-footer {
-  & .footer-data {
+  & .footer-data,
+  & .reply {
     @media (--lg-n-above) {
       text-align: right;
     }
+  }
+
+  & .translations-nav,
+  & .reply {
+    display: inline-block;
+  }
+
+  & br + .reply {
+    @media (--lg-n-below) {
+      margin-top: var(--spacing-tight);
+    }
+
+    & > span {
+      text-transform: capitalize;
+    }
+  }
+
+  & .reply {
+    margin-block-end: 0;
   }
 
   & .post-meta {
@@ -113,13 +133,13 @@ article {
   }
 
   & .translations-nav {
-    @media (--lg-n-below) {
-      margin-bottom: var(--spacing-tight);
-    }
-
     @media (--lg-n-above) {
       grid-column: content;
       text-align: right;
+    }
+
+    @media (--lg-n-below) {
+      margin-top: var(--spacing-tight);
     }
 
     & * {
