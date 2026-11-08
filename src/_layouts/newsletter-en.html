@@ -22,24 +22,31 @@ layout: base.html
 		</article>
 
 		<footer class="post-footer">
-			{% if translations.length > 0 %}
-				<section class="translations-nav">
-					<p>Read also in </p>
-					<ul class="unstyled">
-						{% for translation in translations %}
-							<li>
-								<a href="{{ translation.url }}" hreflang="{{ translation.data.lang }}">{{ translation.data.lang | upper }}</a>
-							</li>
-						{% endfor %}
-					</ul>
-				</section>
-			{% endif %}
-
 			<section class="footer-data">
-				<p>
+				<p class="post-meta">
 					<time datetime="{{ date | formatDate("yyyy-MM-dd") }}">
 						Published {{ date | formatDate("LLLL dd, yyyy") }}
 					</time>
+				</p>
+
+				<br>
+
+				{% if translations.length > 0 %}
+					<section class="translations-nav">
+						<p>Read also in </p>
+						<ul class="unstyled">
+							{% for translation in translations %}
+								<li>
+									<a href="{{ translation.url }}" hreflang="{{ translation.data.lang }}">{{ translation.data.lang | upper }}</a>
+								</li>
+							{% endfor %}
+							<li>or</li>
+						</ul>
+					</section>
+				{% endif %}
+
+				<p class="reply">
+					<span>reply</span> via <a href="mailto:webmaster@gary.place?subject={{ ('Re: ' + title) | urlencode }}">email</a>
 				</p>
 			</section>
 		</footer>

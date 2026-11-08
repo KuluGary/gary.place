@@ -22,29 +22,31 @@ layout: base.html
 		</article>
 
 		<footer class="post-footer">
-			<p class="post-meta">
-				<time datetime="{{ date | formatDate("yyyy-MM-dd") }}">
-						Publicado el {{ date | formatDate("LLLL dd, yyyy") }}
-				</time>
-			</p>
-			{% if translations.length > 0 %}
-				<section class="translations-nav">
-					<p>También disponible en </p>
-					<ul class="unstyled">
-						{% for translation in translations %}
-							<li>
-								<a href="{{ translation.url }}" hreflang="{{ translation.data.lang }}">{{ translation.data.lang | upper }}</a>
-							</li>
-						{% endfor %}
-					</ul>
-				</section>
-			{% endif %}
 
 			<section class="footer-data">
-				<p>
+				<p class="post-meta">
 					<time datetime="{{ date | formatDate("yyyy-MM-dd") }}">
-						Publicado el {{ date | formatDate("LLLL dd, yyyy") }}
+						Publicado el {{ date | formatDate("dd MMM yyyy", lang) }}
 					</time>
+				</p>
+
+				<br>
+
+				{% if translations.length > 0 %}
+					<section class="translations-nav">
+						<p>Puedes leerlo en </p>
+						<ul class="unstyled">
+							{% for translation in translations %}
+								<li>
+									<a href="{{ translation.url }}" hreflang="{{ translation.data.lang }}">{{ translation.data.lang | upper }}</a>
+								</li>
+							{% endfor %}
+							<li>o</li>
+						</ul>
+					</section>
+				{% endif %}
+				<p class="reply">
+					<span>responder</span> por <a href="mailto:webmaster@gary.place?subject={{ ('Re: ' + title) | urlencode }}">email</a>
 				</p>
 			</section>
 		</footer>

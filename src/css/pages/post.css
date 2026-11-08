@@ -52,6 +52,12 @@ article {
 }
 
 .post-footer {
+  margin-bottom: var(--spacing-main);
+
+  &:has(.post-nav) {
+    margin-bottom: 0;
+  }
+
   & .footer-data,
   & .reply {
     @media (--lg-n-above) {
