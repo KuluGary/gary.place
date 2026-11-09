@@ -43,7 +43,6 @@
 @font-face {
   font-family: PatrickHandSC;
   src: url("/assets/fonts/PatrickHandSC-Regular.subset.woff2") format("woff2");
-  font-display: swap;
   size-adjust: 119%;
 }
 
@@ -52,17 +51,15 @@
   src: url("/assets/fonts/MapleMono-CN-Regular.subset.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
   size-adjust: 93%;
 }
 
-@font-face {
+/* @font-face {
   font-family: MapleMono;
   src: url("/assets/fonts/MapleMono-Italic.subset.woff2") format("woff2");
   font-style: italic;
-  font-display: swap;
   size-adjust: 93%;
-}
+} */
 
 @font-face {
   font-family: MapleMono;
@@ -76,5 +73,4 @@
 @font-face {
   font-family: ZenKurenaido;
   src: url("/assets/fonts/ZenKurenaido-Regular.subset.ttf") format("truetype");
-  font-display: swap;
 }
