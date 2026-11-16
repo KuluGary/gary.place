@@ -19,7 +19,7 @@ export default {
       const postLang = getLang(page, lang);
       const langSegment = postLang === DEFAULT_LANG ? "" : `${postLang}/`;
 
-      return `${baseUrl}/${postSlug}/${langSegment}`;
+      return `${langSegment}/${baseUrl}/${postSlug}/`;
     },
     eleventyExcludeFromCollections: ({ draft }) =>
       draft && process.env.ENVIRONMENT === "PRODUCTION" ? true : undefined,
