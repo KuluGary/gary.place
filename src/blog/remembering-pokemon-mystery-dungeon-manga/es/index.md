@@ -7,6 +7,7 @@ tags:
   - gaming
 description: Rememorando acerca de un manga de Pokémon de mi infancia.
 draft: true
+lightbox: true
 ---
 Cuando era pequeño, era muy fan de revistas de videojuegos y dibujos animados. Tuve suerte y en mi barrio habían quioscos por todas partes, y siempre tenían una gran variedad a la venta. Terminé coleccionando un montón, tanto guías como noticias de juegos.
 
