@@ -1,6 +1,6 @@
 export const DEFAULT_LANG = "en";
 
-function getPathParts(page) {
+export function getPathParts(page) {
   return (page.inputPath || "").replace(/\\/g, "/").split("/");
 }
 
@@ -14,10 +14,12 @@ export function getPostSlug(page, category = "blog") {
 export function getLang(page, lang) {
   if (lang) return lang;
 
-  const fileName = getPathParts(page).at(-1) || "";
-  const fileSlug = fileName.replace(/\.[^.]+$/, "");
+  const parts = getPathParts(page);
 
-  return fileSlug === "index" ? DEFAULT_LANG : fileSlug;
+  if (parts.includes("es")) return "es";
+  if (parts.includes("ja")) return "ja";
+
+  return DEFAULT_LANG;
 }
 
 export function getPostLayout(lang, base = "post") {

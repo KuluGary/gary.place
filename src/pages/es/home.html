@@ -1,0 +1,68 @@
+---
+title: Home
+description: Ésta es una página web curada y hecha a mano; un tapiz de intereses desde tecnología, arte, literatura y entretenimiento.
+permalink: /es/
+layout: /home.html
+css:
+  - /css/pages/home.css
+---
+
+{% block content %}
+	<main id="main-content">
+
+		<div class="house">
+			<img
+				src="/assets/images/house_opti.gif"
+				alt=""
+				width="352"
+				height="352"
+				fetchpriority="high"
+			>
+
+			<a href="#">Entrar</a>
+		</div>
+
+		<p>
+			<span class="font-accent">¡Hola!</span> Ésta es una página web curada y hecha a mano. Es un tapiz de intereses desde <em>tecnología</em>, <em>arte</em>, <em>literatura</em> y <em>entretenimiento</em>. Por favor, echa un vistazo y mira si hay algo que llame tu atención.
+			</p>
+
+		<section id="main-navigation">
+			<ul id="nav" class="unstyled">
+				<li>
+					<a href={{ "/posts" | locale_url }} class="font-accent">Posts</a>
+				</li>
+				<li>
+					<a href={{ "/newsletter" | locale_url }} class="font-accent">Newsletter</a>
+				</li>
+				<li>
+					<a href={{ "/about"| locale_url }} class="font-accent">Sobre mí</a>
+				</li>
+			</ul>
+		</section>
+
+		<section id="recent-posts">
+			<h2>Posts recientes <a href="/es/feed.xml">
+					<svg xmlns="http://www.w3.org/2000/svg" width="0.5em" height="0.5em" viewBox="0 0 24 24" aria-label="RSS Feed">
+						<path d="M0 0h24v24H0z" fill="none"/>
+						<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" d="M4 19a1 1 0 1 0 2 0a1 1 0 1 0-2 0M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"/>
+					</svg>
+					<title>RSS Feed</title>
+				</a>
+			</h2>
+
+			<ul>
+				{% for post in collections.posts | filterByLang(page.lang) | limit(5) %}
+					{% include "components/post-list-item.html" %}
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section id="social-links">
+			<p>O encuéntrame en otros sitios.</p>
+
+			{% include "components/social-icons.html" %}
+		</section>
+	</main>
+
+	{% include "components/main-footer.html" %}
+{% endblock content %}

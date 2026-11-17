@@ -648,6 +648,10 @@
     align-items: center;
   }
 
+  #sitefooter .translation-list {
+    column-gap: 1ch;
+  }
+
   /* Pagefind modal */
 
   dialog.pf-modal {

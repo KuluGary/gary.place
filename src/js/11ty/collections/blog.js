@@ -1,5 +1,4 @@
 import { chunk } from "../helpers/array.js";
-import { getPostLang, DEFAULT_LANG } from "./utils.js";
 
 /**
  * Returns all language variants of blog posts inside src/blog.
@@ -16,7 +15,7 @@ export function getAllBlogPosts(collectionApi) {
  * @returns a list of blog posts
  */
 export function getBlogPosts(collectionApi) {
-  return getAllBlogPosts(collectionApi).filter((post) => getPostLang(post) === DEFAULT_LANG);
+  return getAllBlogPosts(collectionApi);
 }
 
 /**

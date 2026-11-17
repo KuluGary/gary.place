@@ -1,0 +1,24 @@
+{% for year, posts in collections.newsletterByYear | dictsort | reverse %}
+	<h2>{{ year }}</h2>
+	<ul>
+		{% for post in posts | filterByLang(page.lang) | reverse %}
+			{% set translations = post.url | locale_links %}
+
+			<li>
+				<a href="{{ post.url | locale_url }}" class="{{ "draft" if post.data.draft }}">{{ t["newsletter-list"].issue }}
+					{{(collections.newsletter | filterByLang(page.lang)).length - loop.index + 1}} - {{post.data.title}}</a>
+
+				{% if translations.length > 0 %}
+					<ul class="unstyled translation-list">
+						{% for translation in translations %}
+							<li>
+								<a href="{{ translation.url }}" hreflang="{{ translation.lang }}" class={{ "draft" if post.data.draft }}>{{ translation.lang | upper }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+				<p>{{ post.data.description }}</p>
+			</li>
+		{% endfor %}
+	</ul>
+{% endfor %}

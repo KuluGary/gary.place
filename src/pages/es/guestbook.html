@@ -1,0 +1,24 @@
+---
+title: Guestbook
+permalink: /es/guestbook/
+layout: base.html
+css:
+  - /css/pages/guestbook.css
+---
+
+{% block content %}
+	<main id="main-content">
+		<h1>Guestbook</h1>
+
+		<p>¡Gracias por pasarte por aquí! Puedes dejar un mensaje o comentairo en la caja de aquí abajo.</p>
+
+		<guestbook-form guestbook="https://webweav.ing/websites/jehw9cvfrq/guestbook"></guestbook-form>
+		<guestbook-comments guestbook="https://webweav.ing/websites/jehw9cvfrq/guestbook"></guestbook-comments>
+	</main>
+{% endblock content %}
+
+{% include "components/guestbook-styling.html" %}
+
+{% block script %}
+	<script type="module" src="https://static.webweav.ing/guestbook-latest.js"></script>
+{% endblock script %}

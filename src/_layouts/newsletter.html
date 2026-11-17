@@ -1,0 +1,56 @@
+---
+layout: base.html
+---
+{% block content %}
+	{% set previousNewsletter = collections.newsletter | getNextCollectionItem %}
+	{% set nextNewsletter = collections.newsletter | getPreviousCollectionItem %}
+
+	<main
+	id="main-content"
+	class="h-entry"
+		{% if not draft %}data-pagefind-body{% endif %}
+	>
+		<header>
+			<h1 class="p-name">{{ title }}</h1>
+		</header>
+
+		<article id="content" class="e-content">
+			{{ content | safe }}
+		</article>
+
+		<footer class="post-footer">
+			<section class="footer-data">
+				<p class="post-meta">
+					<time datetime="{{ date | formatDate("yyyy-MM-dd") }}">
+						{{ t["post-layout"].published }}
+						{{ date | formatDate("DD", page.lang) }}
+					</time>
+				</p>
+
+				<br>
+
+				{% set translations = url | locale_links %}
+
+				{% if translations.length > 0 %}
+					<section class="translations-nav">
+						<p>{{ t["post-layout"].translations }}
+						</p>
+						<ul class="unstyled">
+							{% for translation in translations %}
+								<li>
+									<a href="{{ translation.url }}" hreflang="{{ translation.lang }}">{{ translation.lang | upper }}</a>
+								</li>
+							{% endfor %}
+							<li>{{ t["post-layout"].or }}</li>
+						</ul>
+					</section>
+				{% endif %}
+
+				<p class="reply">
+					{{ t["post-layout"].reply | safe }}
+					<a href="mailto:webmaster@gary.place?subject={{ ('Re: ' + title) | urlencode }}">{{ t["post-layout"].email }}</a>
+				</p>
+			</section>
+		</footer>
+	</main>
+{% endblock content %}

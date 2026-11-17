@@ -3,21 +3,38 @@
 
 	<p>© {{ currentYear }} Gary C.</p>
 
+	<ul class="unstyled translation-list">
+		<li>
+			{{ t.footer.translation }}
+		</li>
+		{% for link in page.url | locale_links %}
+			<li>
+				<a href="{{ link.url }}"
+         lang="{{ link.lang }}"
+         hreflang="{{ link.lang }}">
+					{{ link.label | lower }}
+				</a>
+			</li>
+		{% else %}
+			<li>No translations found</li>
+		{% endfor %}
+	</ul>
+
 	<ul class="unstyled sitemap">
 		<li>
-			<a href="/contact">Contact</a>
+			<a href={{ "/contact" | locale_url }}>{{ t.footer.contact }}</a>
 		</li>
 		<li>
-			<a href="/guestbook">Guestbook</a>
+			<a href={{ "/guestbook" | locale_url }}>{{ t.footer.guestbook }}</a>
 		</li>
 		<li>
-			<a href="/privacy-policy">Privacy</a>
+			<a href={{ "/privacy-policy" | locale_url }}>{{ t.footer.privacy }}</a>
 		</li>
 		<li>
-			<a href="/ai-policy">AI Policy</a>
+			<a href={{ "/ai-policy" | locale_url }}>{{ t.footer["ai-policy"] }}</a>
 		</li>
 		<li>
-			<a href="mailto:webmaster@gary.place">Report an issue</a>
+			<a href="mailto:webmaster@gary.place">{{ t.footer.report }}</a>
 		</li>
 	</ul>
 

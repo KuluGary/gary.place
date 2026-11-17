@@ -2,17 +2,37 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
 
-<link rel="canonical" href="{{ metadata.url }}{{ page.url }}">
-{% if category == "blog" or category == "journal" or category == "newsletter" and postSlug %}
-  <link rel="alternate" hreflang="{{ lang }}" href="{{ metadata.url }}{{ page.url }}">
-  {% set translations = collections.postsWithTranslations | getTranslations(postSlug, page.url) %}
+{% set canonicalUrl = metadata.url ~ page.url %}
+
+<link rel="canonical" href="{{ canonicalUrl }}">
+
+<!-- Language alternatives -->
+
+{% set translations = page.url | locale_links %}
+
+{% if translations.length > 0 %}
   {% for translation in translations %}
-    <link rel="alternate" hreflang="{{ translation.data.lang }}" href="{{ metadata.url }}{{ translation.url }}">
+    <link rel="alternate" hreflang="{{ translation.lang }}" href="{{ metadata.url }}{{ translation.url }}">
+  {% endfor %}
+{% endif %}
+
+{% if lang == "en" %}
+  <link rel="alternate" hreflang="x-default" href="{{ canonicalUrl }}">
+{% else %}
+  {% for translation in translations %}
+    {% if translation.data.lang == "en" %}
+      <link rel="alternate"
+              hreflang="x-default"
+              href="{{ metadata.url }}{{ translation.url }}">
+    {% endif %}
   {% endfor %}
 {% endif %}
 
 <!-- Feeds -->
-<link rel="alternate" href="{{ metadata.feedUrl }}" type="application/atom+xml" title="{{ metadata.title }}">
+<link rel="alternate"
+      href="{{ metadata.feedUrl }}"
+      type="application/atom+xml"
+      title="{{ metadata.title }}">
 
 <!-- Verifications -->
 <link href="https://tilde.zone/@gary" rel="me" title="Mastodon tilde.zone">
@@ -22,36 +42,38 @@
 
 <!-- Webmentions -->
 <link rel="pingback" href="https://webmention.io/gary.place/xmlrpc">
-<link rel="webmention" href="https://webmention.io/gary.place/webmention"/>
+<link rel="webmention" href="https://webmention.io/gary.place/webmention">
 
 <!-- SEO -->
-<title>{{ title }} • {{ metadata.title }}</title>
+<title>{{ title or metadata.title }} • {{ metadata.title }}</title>
 <meta name="description" content="{{ description or metadata.description }}">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="{{ 'noindex' if ignore else 'index, follow' }}">
 <meta name="generator" content="Eleventy">
+
 {% block head %}{% endblock %}
 
 <!-- Open Graph -->
-<meta property="og:locale" content="es_ES">
+<meta property="og:locale" content="{{ 'es_ES' if lang == 'es' else 'en_US' }}">
+<meta property="og:locale:alternate" content="{{ 'en_US' if lang == 'es' else 'es_ES' }}">
 <meta property="og:site_name" content="{{ metadata.title }}">
 <meta property="og:type" content="{{ ogtype or 'website' }}">
-<meta property="og:url" content="{{ metadata.url }}{{ page.url }}">
-<meta property="og:image" content="/assets/images/social-icon.png">
+<meta property="og:url" content="{{ canonicalUrl }}">
+<meta property="og:title" content="{{ title or metadata.title }}">
+<meta property="og:description" content="{{ description or metadata.description }}">
+<meta property="og:image" content="{{ metadata.url }}/assets/images/social-icon.png">
 <meta property="og:image:width" content="570">
 <meta property="og:image:height" content="570">
 
+<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@KuluGary">
 <meta name="twitter:title" content="{{ title or metadata.title }}">
 <meta name="twitter:description" content="{{ description or metadata.description }}">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="/assets/images/social-icon.png">
+<meta name="twitter:image" content="{{ metadata.url }}/assets/images/social-icon.png">
 
-<!-- Favicon Meta -->
+<!-- Favicon -->
 <link rel="icon" href="/assets/images/cap.svg" type="image/svg+xml">
 
 <!-- Fonts -->
-<link rel="preload" href="/assets/fonts/MapleMono-CN-Regular.subset.woff2" as="font" type="font/woff2" crossorigin/>
-<link rel="preload" href="/assets/fonts/PatrickHandSC-Regular.subset.woff2" as="font" type="font/woff2" crossorigin/>
-
-{% if ignore %}<meta name="robots" content="noindex">{% endif %}
+<link rel="preload" href="/assets/fonts/MapleMono-CN-Regular.subset.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/PatrickHandSC-Regular.subset.woff2" as="font" type="font/woff2" crossorigin>

@@ -1,0 +1,22 @@
+---
+title: Newsletter
+permalink: /newsletter/
+layout: base.html
+css:
+  - /css/pages/newsletter.css
+---
+
+{% block content %}
+	<main id="main-content">
+
+		<p>Subscribe to receive occasional email updates.</p>
+
+		<p>I'll only use your email address to send you this newsletter. I won't sell your information, share your email address for advertising, or use it for unrelated purposes.</p>
+
+		{% include "components/email-form.html" %}
+
+		<p>Or you can also subscribe to the <a href="/newsletter/feed.xml">RSS feed</a> to get updates that way.</p>
+
+		{% include "components/newsletter-list.html" %}
+	</main>
+{% endblock content %}

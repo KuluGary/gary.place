@@ -15,7 +15,7 @@ export function getAllNewsletterPosts(collectionApi) {
  * @returns a list of newsletter posts
  */
 export function getNewsletterPosts(collectionApi) {
-  return getAllNewsletterPosts(collectionApi).filter((post) => getPostLang(post) === DEFAULT_LANG);
+  return getAllNewsletterPosts(collectionApi);
 }
 
 /**

@@ -5,7 +5,7 @@ import subsetting from "@photogabble/eleventy-plugin-font-subsetting";
 import postGraph from "@rknightuk/eleventy-plugin-post-graph";
 import dotenv from "dotenv";
 
-import { RenderPlugin } from "@11ty/eleventy";
+import { I18nPlugin, RenderPlugin } from "@11ty/eleventy";
 import { getAllBlogPosts, getBlogPosts, getBlogTagPages } from "./src/js/11ty/collections/blog.js";
 import { getAllJournalPosts, getJournalPosts, getJournalTagPages } from "./src/js/11ty/collections/journal.js";
 import {
@@ -19,7 +19,7 @@ import { formatDate, formatDuration, sortByDate } from "./src/js/11ty/filters/da
 import { optimizeRssImages } from "./src/js/11ty/filters/image.js";
 import { asciiPunct, plaintextHtml, plainUrl } from "./src/js/11ty/filters/plaintext.js";
 import { pad, unslugify } from "./src/js/11ty/filters/string.js";
-import { filterByLang, getTranslations } from "./src/js/11ty/filters/translations.js";
+import { filterByLang, getAdjacentCollectionItem, getTranslations } from "./src/js/11ty/filters/translations.js";
 import { filterOwnWebmentions, getWebmentionsByUrl, webmentionsByType } from "./src/js/11ty/filters/webmentions.js";
 import { generateAudio } from "./src/js/11ty/shortcodes/audio.js";
 import { generateGallery } from "./src/js/11ty/shortcodes/images/gallery.js";
@@ -69,6 +69,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter("unslugify", unslugify);
   eleventyConfig.addFilter("getTranslations", getTranslations);
   eleventyConfig.addFilter("filterByLang", filterByLang);
+  eleventyConfig.addFilter("getAdjacentCollectionItem", getAdjacentCollectionItem);
   eleventyConfig.addFilter("filterOwnWebmentions", filterOwnWebmentions);
   eleventyConfig.addFilter("getWebmentionsByUrl", getWebmentionsByUrl);
   eleventyConfig.addFilter("webmentionsByType", webmentionsByType);
@@ -96,6 +97,10 @@ export default async function (eleventyConfig) {
     noLabels: true,
     noStyles: true,
   });
+  eleventyConfig.addPlugin(I18nPlugin, {
+    defaultLanguage: "en",
+    errorMode: "allow-fallback",
+  });
   eleventyConfig.addPlugin(subsetting, {
     enabled: process.env.ELEVENTY_ENV !== "production",
     dist: "_site/assets/fonts",
@@ -115,7 +120,6 @@ export default async function (eleventyConfig) {
   eleventyConfig.addCollection("blogAll", getAllBlogPosts);
   eleventyConfig.addCollection("blogTagPages", getBlogTagPages);
   eleventyConfig.addCollection("journal", getJournalPosts);
-  eleventyConfig.addCollection("journalAll", getAllJournalPosts);
   eleventyConfig.addCollection("journalTagPages", getJournalTagPages);
   eleventyConfig.addCollection("newsletter", getNewsletterPosts);
   eleventyConfig.addCollection("newsletterAll", getAllNewsletterPosts);

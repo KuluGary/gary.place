@@ -1,0 +1,35 @@
+---
+title: Sobre mí
+description: Hola, soy Gary y soy el autor y webmaster de esta página web.
+permalink: /es/sobre-mi/
+layout: /base.html
+css:
+  - /css/pages/about.css
+---
+
+{% block content %}
+	<main id="main-content">
+		<dl>
+			<dt>¿Entonces quién eres?</dt>
+			<dd>Hola, soy Gary y soy el autor y webmaster de <a href="{{ "/" | locale_url }}">{{ metadata.title }}</a>.</dd>
+
+			<dt>¿Exactamente qué es esta página web?</dt>
+			<dd>
+				<a href="{{ "/" | locale_url }}">{{ metadata.title }}</a> es una página personal y blog donde escribo de vez en cuando.
+			 </dd>
+
+			<dt>¿Y de qué escribes?</dt>
+			<dd>
+			No tengo un tema específico al que me adhiero, pero suelo escribir acerca de videojuegos, tecnología y cosas así.</dd>
+
+			<dt>¿Y por qué existe esta página?</dt>
+			<dd>He tenido páginas web de una forma u otra desde hace más de diez años. Al principio en <a href="https://www.blogger.com/">blogger.com</a>, pero también algunas en <a href="https://www.tumblr.com/">tumblr.com</a>. Desde siempre me he sentido inclinado a compartir cosas en línea, y esta página es un resultado de eso.</dd>
+
+			<dt>¿No es más fácil subir esto en [red social]?</dt>
+			<dd>No me gustan las redes sociales. Tengo cuentas allá donde las necesito, pero en general no me gusta postear allí.</dd>
+
+			<dt>¿Algo más?</dt>
+			<dd>Esta página web está escrita a mano para ojos humanos, y espero sinceramente que encuentres algo que te ayude o entretenga. Si es así y quieres charlar sobre ello, puedes <a href="{{ "/contact" | locale_url }}">contactar</a> conmigo e intentaré responderte más pronto que tarde.</dd>
+		</dl>
+	</main>
+{% endblock content %}

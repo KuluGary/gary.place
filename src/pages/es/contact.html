@@ -1,0 +1,56 @@
+---
+title: Contacto
+layout: base.html
+permalink: /es/contacto/
+css:
+  - /css/pages/contact.css
+---
+
+{% block content %}
+	<main id="main-content">
+		<h1>Contacto</h1>
+
+		<p>Puedes enviar un mensaje a través de este formulario. Si no, puedes <a href="mailto:webmaster@gary.place">enviarme un e-mail</a> o escribir en mi <a href="/guestbook/">my guestbook</a>.
+		</p>
+
+		<p>
+			<em>NUNCA</em> usaré este e-mail para <em>NADA</em> más que responderte. Echa un vistazo a mi <a href={{"/privacy-policy" | locale_url }}>Política de Privacidad</a> para más información.
+		</p>
+
+		<form
+			name="contact"
+			method="POST"
+			data-netlify="true"
+			netlify-honeypot="bot-field"
+			action="/contact/thank-you/">
+			<input type="hidden" name="form-name" value="contact">
+
+			<p style="display:none">
+				<label>
+      Don’t fill this out:
+      <input name="bot-field" tabindex="-1" autocomplete="off">
+				</label>
+			</p>
+
+			<input type="hidden" name="subject" value="New message from gary.place">
+
+			<p>
+				<label for="name">Nombre</label>
+				<input type="text" id="name" name="name" required>
+			</p>
+
+			<p>
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email" required>
+			</p>
+
+			<p>
+				<label for="message">Mensaje</label>
+				<textarea id="message" name="message" rows="6" required></textarea>
+			</p>
+
+			<button type="submit">Enviar mensaje</button>
+		</form>
+	</main>
+
+{% endblock content %}

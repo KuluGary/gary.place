@@ -1,0 +1,24 @@
+---
+title: Newsletter
+permalink: /es/newsletter/
+layout: base.html
+css:
+  - /css/pages/newsletter.css
+---
+
+{% block content %}
+	<main id="main-content">
+		<p>Subscríbete para recibir actualizaciones ocasionales por email.</p>
+
+		<p>Solo utilizaré tu dirección de correo para enviarte la newsletter. No venderé tu información, compartiré tu dirección con propósitos de marketing, o para propósitos sin relación.</p>
+
+		{% include "components/email-form.html" %}
+
+		<p class="sub">La newsletter es enviada en inglés, pero tanto en el email como en el archivo de esta página habrán enlaces a sus versiones traducidas.</p>
+
+		<p>También puedes subcribirte al <a href={{ "/newsletter/feed.xml" | locale_url }}>RSS feed</a> para conseguir actualizaciones de esa forma.</p>
+
+		{% include "components/newsletter-list.html" %}
+
+	</main>
+{% endblock content %}

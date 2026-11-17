@@ -16,7 +16,7 @@ export function getAllJournalPosts(collectionApi) {
  * @returns a list of journal posts
  */
 export function getJournalPosts(collectionApi) {
-  return getAllJournalPosts(collectionApi).filter((post) => getPostLang(post) == DEFAULT_LANG);
+  return getAllJournalPosts(collectionApi);
 }
 
 /**

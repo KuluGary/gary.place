@@ -1,0 +1,68 @@
+---
+title: Home
+description: This is a curated and handcrafted website; a patchwork of interests ranging from technology, art, literature and entertainment.
+permalink: /
+layout: /home.html
+css:
+  - /css/pages/home.css
+---
+
+{% block content %}
+	<main id="main-content">
+
+		<div class="house">
+			<img
+				src="/assets/images/house_opti.gif"
+				alt=""
+				width="352"
+				height="352"
+				fetchpriority="high"
+			>
+
+			<a href="#">Enter</a>
+		</div>
+
+		<p>
+			<span class="font-accent">Welcome!</span> This is a curated and handcrafted website. This place is a patchwork of interests ranging from <em>technology</em>, <em>art</em>, <em>literature</em> and <em>entertainment</em>. Please look around and see if you find anything that catches your eye.
+			</p>
+
+		<section id="main-navigation">
+			<ul id="nav" class="unstyled">
+				<li>
+					<a href="/posts" class="font-accent">Posts</a>
+				</li>
+				<li>
+					<a href="/newsletter" class="font-accent">Newsletter</a>
+				</li>
+				<li>
+					<a href="/about" class="font-accent">About</a>
+				</li>
+			</ul>
+		</section>
+
+		<section id="recent-posts">
+			<h2>Recent posts <a href="/feed.xml">
+					<svg xmlns="http://www.w3.org/2000/svg" width="0.5em" height="0.5em" viewBox="0 0 24 24" aria-label="RSS Feed">
+						<path d="M0 0h24v24H0z" fill="none"/>
+						<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" d="M4 19a1 1 0 1 0 2 0a1 1 0 1 0-2 0M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"/>
+					</svg>
+					<title>RSS Feed</title>
+				</a>
+			</h2>
+
+			<ul>
+				{% for post in collections.posts | filterByLang(page.lang) | limit(5) %}
+					{% include "components/post-list-item.html" %}
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section id="social-links">
+			<p>Or, find me elsewhere.</p>
+
+			{% include "components/social-icons.html" %}
+		</section>
+	</main>
+
+	{% include "components/main-footer.html" %}
+{% endblock content %}
