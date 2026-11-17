@@ -30,7 +30,7 @@ layout: base.html
 				<ul class="post-tags unstyled">
 					{% for tag in tags %}
 						<li>
-							<a href="/posts/tags/{{ tag }}">#{{ tag | lower }}</a>
+							<a href={{ ("/posts/tags/" + tag) | locale_url }}>#{{ tag | lower }}</a>
 						</li>
 					{% endfor %}
 				</ul>

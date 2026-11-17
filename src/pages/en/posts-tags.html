@@ -6,12 +6,12 @@
     alias: "tag",
     filter: ["posts"],
     addAllPagesToCollections: true,
-    before: function(paginationData, {collections}) {
+    before: function (paginationData, { collections }) {
       let ret = [];
       let tagIndex = 0;
       const postsPerPage = 10;
 
-      for(let tagName of paginationData) {
+      for (let tagName of paginationData) {
         let tagPosts = collections[tagName];
 
         if (!tagPosts || !Array.isArray(tagPosts)) {
@@ -19,8 +19,8 @@
           continue;
         }
 
-        let postUrls = new Set(collections.posts.map(post => post.url));
-        tagPosts = tagPosts.filter(post => postUrls.has(post.url));
+        let postUrls = new Set(collections.posts.filter((post) => post.data.lang === "en").map((post) => post.url));
+        tagPosts = tagPosts.filter((post) => postUrls.has(post.url));
 
         tagPosts.sort((a, b) => b.date - a.date);
 
@@ -31,7 +31,7 @@
 
         let totalPages = Math.ceil(tagPosts.length / postsPerPage);
 
-        for(let pageNum = 0; pageNum < totalPages; pageNum++) {
+        for (let pageNum = 0; pageNum < totalPages; pageNum++) {
           let startIdx = pageNum * postsPerPage;
           let endIdx = Math.min(startIdx + postsPerPage, tagPosts.length);
           let postsForPage = tagPosts.slice(startIdx, endIdx);
@@ -43,7 +43,7 @@
             pageNumber: pageNum,
             totalPages: totalPages,
             isFirstPage: pageNum === 0,
-            isLastPage: pageNum === totalPages - 1
+            isLastPage: pageNum === totalPages - 1,
           });
         }
 

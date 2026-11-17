@@ -1,0 +1,102 @@
+---js
+{
+  pagination: {
+    data: "collections",
+    size: 1,
+    alias: "tag",
+    filter: ["posts"],
+    addAllPagesToCollections: true,
+    before: function (paginationData, { collections }) {
+      let ret = [];
+      let tagIndex = 0;
+      const postsPerPage = 10;
+
+      for (let tagName of paginationData) {
+        let tagPosts = collections[tagName];
+
+        if (!tagPosts || !Array.isArray(tagPosts)) {
+          tagIndex++;
+          continue;
+        }
+
+        let postUrls = new Set(collections.posts.filter((post) => post.data.lang === "es").map((post) => post.url));
+        tagPosts = tagPosts.filter((post) => postUrls.has(post.url));
+
+        tagPosts.sort((a, b) => b.date - a.date);
+
+        if (tagPosts.length === 0) {
+          tagIndex++;
+          continue;
+        }
+
+        let totalPages = Math.ceil(tagPosts.length / postsPerPage);
+
+        for (let pageNum = 0; pageNum < totalPages; pageNum++) {
+          let startIdx = pageNum * postsPerPage;
+          let endIdx = Math.min(startIdx + postsPerPage, tagPosts.length);
+          let postsForPage = tagPosts.slice(startIdx, endIdx);
+
+          ret.push({
+            eleventyPaginationGroupNumber: tagIndex,
+            tagName: tagName,
+            posts: postsForPage,
+            pageNumber: pageNum,
+            totalPages: totalPages,
+            isFirstPage: pageNum === 0,
+            isLastPage: pageNum === totalPages - 1,
+          });
+        }
+
+        tagIndex++;
+      }
+
+      return ret;
+    }
+  },
+  permalink: "/es/posts/tags/{{tag.tagName}}{% if tag.pageNumber > 0 %}/{{ tag.pageNumber + 1 }}{% endif %}/",
+  eleventyComputed: {
+    title: "Posts tagged \"{{ tag.tagName }}\"",
+  },
+  layout: "base.html",
+  css: [
+    "/css/pages/posts.css"
+  ]
+}
+---
+
+{% block content %}
+  <main id="main-content">
+    <ul class="blog-actions unstyled">
+      <li>Posts tagged “{{ tag.tagName | lower }}”.</li>
+      <li data-pf-theme="dark">
+        <pagefind-modal-trigger compact hide-shortcut ></pagefind-modal-trigger>
+        <pagefind-modal></pagefind-modal>
+      </li>
+      <li>
+        <a href="/feed.xml">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-label="RSS Feed">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" d="M4 19a1 1 0 1 0 2 0a1 1 0 1 0-2 0M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"/>
+          </svg>
+
+          <title>RSS Feed</title>
+        </a>
+      </li>
+    </ul>
+
+    <hr class="separator-1 separator-tight">
+
+    <ul>
+      {% for post in tag.posts %}
+        {% include "components/post-list-item.html" %}
+      {% endfor %}
+    </ul>
+
+    <footer>
+      {% if tag.totalPages > 1 %}
+        {% include "components/tag-pagination.html" %}
+      {% endif %}
+    </footer>
+  </main>
+  {% include "components/main-footer.html" %}
+{% endblock %}
